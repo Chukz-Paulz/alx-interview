@@ -1,23 +1,28 @@
 #!/usr/bin/python3
+"""
+0-pascal_triangle
+"""
 
 def pascal_triangle(n):
     """
-    Return a list of lists representing Pascal's Triangle of size n.
-    Returns an empty list if n <= 0.
+    This Returns a list of lists of integers representing Pascal's Triangle of size n.
+    Will Return an empty list if n <= 0.
     """
+    q = []
     if n <= 0:
-        return []
+        return q
 
-    # Initialize the triangle with the first row
-    triangle = [[1]]
-
-    # Generate subsequent rows
+    q = [[1]]
     for i in range(1, n):
         """
-        Create the current row with 1 at the beginning and end,
-        and use list comprehension to generate the middle elements.
+        This Create a new row starting with 1,
+        and compute the values by summing adjacent elements from the previous row.
         """
-        row = [1] + [triangle[i - 1][j - 1] + triangle[i - 1][j] for j in range(1, i)] + [1]
-        triangle.append(row)
+        temp = [1]
+        for j in range(len(q[i - 1]) - 1):
+            curr = q[i - 1]
+            temp.append(curr[j] + curr[j + 1])
+        temp.append(1)
+        q.append(temp)
 
-    return triangle
+    return q
